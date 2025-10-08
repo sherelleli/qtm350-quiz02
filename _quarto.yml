@@ -25,4 +25,4 @@ execute:
   warning: false
   message: false
 
-jupyter: python3
+jupyter: py-quarto
