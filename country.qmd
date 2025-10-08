@@ -1,0 +1,38 @@
+---
+title: "Country Analysis"
+params:
+  country: "China"
+---
+
+Time trends for a chosen country. Change the value of `country` in the page header to analyze a different one.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+gap = px.data.gapminder()
+country = "{{params.country}}"
+df = gap.query("country == @country").sort_values("year").copy()
+
+plt.figure(figsize=(7,4))
+plt.plot(df['year'], df['lifeExp'], marker='o', c="#6A0DAD")
+plt.xlabel("Year"); plt.ylabel("Life Expectancy")
+plt.title(f"Life Expectancy in {country}")
+plt.tight_layout(); plt.show()
+
+plt.figure(figsize=(7,4))
+plt.plot(df['year'], df['gdpPercap'], marker='o', c="#6A0DAD")
+plt.yscale('log')
+plt.xlabel("Year"); plt.ylabel("GDP per Capita (log)")
+plt.title(f"GDP per Capita in {country}")
+plt.tight_layout(); plt.show()
+
+plt.figure(figsize=(7,4))
+plt.plot(df['year'], df['pop'], marker='o', c="#6A0DAD")
+plt.xlabel("Year"); plt.ylabel("Population")
+plt.title(f"Population in {country}")
+plt.tight_layout(); plt.show()
+
+print(f"rows: {len(df)}, years covered: {df['year'].min()}–{df['year'].max()}")

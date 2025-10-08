@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Quiz 2: Gapminder Mini Site"
+  navbar:
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Life Expectancy vs GDP"
+        file: life-gdp.qmd
+      - text: "Life Expectancy vs Population"
+        file: life-population.qmd
+      - text: "Country Analysis"
+        file: country.qmd
+
+format:
+  html:
+    theme: sketchy
+    toc: true
+
+execute:
+  echo: true
+  warning: false
+  message: false

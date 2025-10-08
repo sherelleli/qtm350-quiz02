@@ -1,0 +1,31 @@
+---
+title: "Life Expectancy and GDP per Capita"
+---
+
+A quick look at how life expectancy changes with GDP per capita.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+df = px.data.gapminder().copy()
+x = np.log10(df['gdpPercap'])
+y = df['lifeExp']
+
+coef = np.polyfit(x, y, 1)
+fit = np.poly1d(coef)
+
+plt.figure(figsize=(7,5))
+plt.scatter(df['gdpPercap'], df['lifeExp'], alpha=0.4, s=18, c="#87CEFA")
+x_sorted = np.linspace(df['gdpPercap'].min(), df['gdpPercap'].max(), 400)
+plt.plot(x_sorted, fit(np.log10(x_sorted)), linewidth=2.0, c="#6A0DAD")
+plt.xscale('log')
+plt.xlabel("GDP per Capita (log scale)")
+plt.ylabel("Life Expectancy (years)")
+plt.tight_layout()
+plt.show()
+
+print("slope_years_per_log10GDP =", round(coef[0], 2))
+print("intercept =", round(coef[1], 2))

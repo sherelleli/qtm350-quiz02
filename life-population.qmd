@@ -1,0 +1,26 @@
+---
+title: "Life Expectancy and Population"
+---
+
+Checking if life expectancy varies with population.
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+df = px.data.gapminder().copy()
+
+plt.figure(figsize=(7,5))
+plt.scatter(df['pop'], df['lifeExp'], alpha=0.35, s=18, c="#87CEFA")
+bins = np.quantile(df['pop'], np.linspace(0, 1, 60))
+bin_idx = np.digitize(df['pop'], bins, right=True)
+x_bin = pd.Series(df['pop']).groupby(bin_idx).median()
+y_bin = pd.Series(df['lifeExp']).groupby(bin_idx).mean()
+plt.plot(x_bin, y_bin, linewidth=2.0, c="#6A0DAD")
+plt.xscale('log')
+plt.xlabel("Population (log scale)")
+plt.ylabel("Life Expectancy (years)")
+plt.tight_layout()
+plt.show()

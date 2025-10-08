@@ -1,0 +1,9 @@
+---
+title: "Gapminder Overview"
+---
+
+This site explores relationships in the Gapminder dataset using Python.
+
+- [Life Expectancy and GDP per Capita](life-gdp.qmd)
+- [Life Expectancy and Population](life-population.qmd)
+- [Country Analysis](country.qmd)
