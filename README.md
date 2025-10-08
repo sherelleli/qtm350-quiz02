@@ -70,7 +70,7 @@ gapminder_df.to_csv('gapminder.csv', index=False)
 
 15. Copy the GitHub Pages link and submit it on Canvas as instructed.
 
-### Bonus Question
+### Bonus Questions
 
 16. Enhance the website's appearance by adding a custom CSS file.
 
