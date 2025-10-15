@@ -2,38 +2,56 @@
 title: "Country Analysis"
 params:
   country: "China"
+execute:
+  echo: true
+  warning: false
+  message: false
+jupyter: py-quarto
 ---
 
-Time trends for a chosen country. Change the value of `country` in the page header to analyze a different one.
+This page displays life expectancy, GDP per capita, and population over time for a chosen country.
 
 ```{python}
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import plotly.express as px
 
-gap = px.data.gapminder()
-country = "{{params.country}}"
-df = gap.query("country == @country").sort_values("year").copy()
+plt.rcParams["figure.dpi"] = 120
 
-plt.figure(figsize=(7,4))
-plt.plot(df['year'], df['lifeExp'], marker='o', c="#6A0DAD")
-plt.xlabel("Year"); plt.ylabel("Life Expectancy")
-plt.title(f"Life Expectancy in {country}")
-plt.tight_layout(); plt.show()
+# Load the Gapminder dataset
+gapminder = pd.read_csv("gapminder.csv")
 
-plt.figure(figsize=(7,4))
-plt.plot(df['year'], df['gdpPercap'], marker='o', c="#6A0DAD")
-plt.yscale('log')
-plt.xlabel("Year"); plt.ylabel("GDP per Capita (log)")
-plt.title(f"GDP per Capita in {country}")
-plt.tight_layout(); plt.show()
+# Choose the country to analyze (change here if needed)
+country = "China"
+country_data = gapminder[gapminder['country'] == country]
 
-plt.figure(figsize=(7,4))
-plt.plot(df['year'], df['pop'], marker='o', c="#6A0DAD")
-plt.xlabel("Year"); plt.ylabel("Population")
-plt.title(f"Population in {country}")
-plt.tight_layout(); plt.show()
+# Plot 1: Life Expectancy
+plt.figure(figsize=(10, 6))
+plt.plot(country_data['year'], country_data['life_expectancy'], color="#6A0DAD")
+plt.title(f"Life Expectancy Over Time in {country}")
+plt.xlabel("Year")
+plt.ylabel("Life Expectancy (years)")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 
-print(f"rows: {len(df)}, years covered: {df['year'].min()}–{df['year'].max()}")
+# Plot 2: GDP per Capita (log scale)
+plt.figure(figsize=(10, 6))
+plt.plot(country_data['year'], country_data['gdp_per_capita'], color="#87CEFA")
+plt.yscale("log")
+plt.title(f"GDP per Capita (log scale) in {country}")
+plt.xlabel("Year")
+plt.ylabel("GDP per Capita (log scale)")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Plot 3: Population
+plt.figure(figsize=(10, 6))
+plt.plot(country_data['year'], country_data['population_millions'], color="#FF6B6B")
+plt.title(f"Population (millions) Over Time in {country}")
+plt.xlabel("Year")
+plt.ylabel("Population (millions)")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 ```

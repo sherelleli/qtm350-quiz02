@@ -1,5 +1,10 @@
 ---
 title: "Life Expectancy and GDP per Capita"
+execute:
+  echo: false
+  warning: false
+  message: false
+jupyter: py-quarto
 ---
 
 A quick look at how life expectancy changes with GDP per capita.

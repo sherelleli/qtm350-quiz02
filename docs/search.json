@@ -18,14 +18,14 @@
     "href": "life-gdp.html",
     "title": "Life Expectancy and GDP per Capita",
     "section": "",
-    "text": "A quick look at how life expectancy changes with GDP per capita.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport plotly.express as px\n\ndf = px.data.gapminder().copy()\nx = np.log10(df['gdpPercap'])\ny = df['lifeExp']\n\ncoef = np.polyfit(x, y, 1)\nfit = np.poly1d(coef)\n\nplt.figure(figsize=(7,5))\nplt.scatter(df['gdpPercap'], df['lifeExp'], alpha=0.4, s=18, c=\"#87CEFA\")\nx_sorted = np.linspace(df['gdpPercap'].min(), df['gdpPercap'].max(), 400)\nplt.plot(x_sorted, fit(np.log10(x_sorted)), linewidth=2.0, c=\"#6A0DAD\")\nplt.xscale('log')\nplt.xlabel(\"GDP per Capita (log scale)\")\nplt.ylabel(\"Life Expectancy (years)\")\nplt.tight_layout()\nplt.show()\n\nprint(\"slope_years_per_log10GDP =\", round(coef[0], 2))\nprint(\"intercept =\", round(coef[1], 2))\n\n\n\n\n\n\n\n\nslope_years_per_log10GDP = 19.35\nintercept = -9.1"
+    "text": "A quick look at how life expectancy changes with GDP per capita.\n\n\n\n\n\n\n\n\n\nslope_years_per_log10GDP = 19.35\nintercept = -9.1"
   },
   {
     "objectID": "country.html",
     "href": "country.html",
     "title": "Country Analysis",
     "section": "",
-    "text": "Time trends for a chosen country. Change the value of country in the page header to analyze a different one.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport plotly.express as px\n\ngap = px.data.gapminder()\ncountry = \"{{params.country}}\"\ndf = gap.query(\"country == @country\").sort_values(\"year\").copy()\n\nplt.figure(figsize=(7,4))\nplt.plot(df['year'], df['lifeExp'], marker='o', c=\"#6A0DAD\")\nplt.xlabel(\"Year\"); plt.ylabel(\"Life Expectancy\")\nplt.title(f\"Life Expectancy in {country}\")\nplt.tight_layout(); plt.show()\n\nplt.figure(figsize=(7,4))\nplt.plot(df['year'], df['gdpPercap'], marker='o', c=\"#6A0DAD\")\nplt.yscale('log')\nplt.xlabel(\"Year\"); plt.ylabel(\"GDP per Capita (log)\")\nplt.title(f\"GDP per Capita in {country}\")\nplt.tight_layout(); plt.show()\n\nplt.figure(figsize=(7,4))\nplt.plot(df['year'], df['pop'], marker='o', c=\"#6A0DAD\")\nplt.xlabel(\"Year\"); plt.ylabel(\"Population\")\nplt.title(f\"Population in {country}\")\nplt.tight_layout(); plt.show()\n\nprint(f\"rows: {len(df)}, years covered: {df['year'].min()}–{df['year'].max()}\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nrows: 0, years covered: nan–nan"
+    "text": "This page displays life expectancy, GDP per capita, and population over time for a chosen country.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nplt.rcParams[\"figure.dpi\"] = 120\n\n# Load the Gapminder dataset\ngapminder = pd.read_csv(\"gapminder.csv\")\n\n# Choose the country to analyze (change here if needed)\ncountry = \"China\"\ncountry_data = gapminder[gapminder['country'] == country]\n\n# Plot 1: Life Expectancy\nplt.figure(figsize=(10, 6))\nplt.plot(country_data['year'], country_data['life_expectancy'], color=\"#6A0DAD\")\nplt.title(f\"Life Expectancy Over Time in {country}\")\nplt.xlabel(\"Year\")\nplt.ylabel(\"Life Expectancy (years)\")\nplt.grid(True)\nplt.tight_layout()\nplt.show()\n\n# Plot 2: GDP per Capita (log scale)\nplt.figure(figsize=(10, 6))\nplt.plot(country_data['year'], country_data['gdp_per_capita'], color=\"#87CEFA\")\nplt.yscale(\"log\")\nplt.title(f\"GDP per Capita (log scale) in {country}\")\nplt.xlabel(\"Year\")\nplt.ylabel(\"GDP per Capita (log scale)\")\nplt.grid(True)\nplt.tight_layout()\nplt.show()\n\n# Plot 3: Population\nplt.figure(figsize=(10, 6))\nplt.plot(country_data['year'], country_data['population_millions'], color=\"#FF6B6B\")\nplt.title(f\"Population (millions) Over Time in {country}\")\nplt.xlabel(\"Year\")\nplt.ylabel(\"Population (millions)\")\nplt.grid(True)\nplt.tight_layout()\nplt.show()"
   },
   {
     "objectID": "index.html",
@@ -39,6 +39,6 @@
     "href": "life-population.html",
     "title": "Life Expectancy and Population",
     "section": "",
-    "text": "Checking if life expectancy varies with population.\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport plotly.express as px\n\ndf = px.data.gapminder().copy()\n\nplt.figure(figsize=(7,5))\nplt.scatter(df['pop'], df['lifeExp'], alpha=0.35, s=18, c=\"#87CEFA\")\nbins = np.quantile(df['pop'], np.linspace(0, 1, 60))\nbin_idx = np.digitize(df['pop'], bins, right=True)\nx_bin = pd.Series(df['pop']).groupby(bin_idx).median()\ny_bin = pd.Series(df['lifeExp']).groupby(bin_idx).mean()\nplt.plot(x_bin, y_bin, linewidth=2.0, c=\"#6A0DAD\")\nplt.xscale('log')\nplt.xlabel(\"Population (log scale)\")\nplt.ylabel(\"Life Expectancy (years)\")\nplt.tight_layout()\nplt.show()"
+    "text": "Checking if life expectancy varies with population."
   }
 ]

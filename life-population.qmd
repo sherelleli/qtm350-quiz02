@@ -1,5 +1,10 @@
 ---
 title: "Life Expectancy and Population"
+execute:
+  echo: false
+  warning: false
+  message: false
+jupyter: py-quarto
 ---
 
 Checking if life expectancy varies with population.
