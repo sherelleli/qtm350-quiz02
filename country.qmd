@@ -36,3 +36,4 @@ plt.title(f"Population in {country}")
 plt.tight_layout(); plt.show()
 
 print(f"rows: {len(df)}, years covered: {df['year'].min()}–{df['year'].max()}")
+```

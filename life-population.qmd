@@ -24,3 +24,4 @@ plt.xlabel("Population (log scale)")
 plt.ylabel("Life Expectancy (years)")
 plt.tight_layout()
 plt.show()
+```

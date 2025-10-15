@@ -29,3 +29,4 @@ plt.show()
 
 print("slope_years_per_log10GDP =", round(coef[0], 2))
 print("intercept =", round(coef[1], 2))
+```
